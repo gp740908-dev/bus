@@ -5,7 +5,7 @@ const buses = [
     {
         id: 1,
         name: 'Executive Class',
-        type: 'Bus Mewah',
+        type: 'Luxury',
         image:
             'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=800&q=80',
         seats: 32,
@@ -16,7 +16,7 @@ const buses = [
     {
         id: 2,
         name: 'Business Class',
-        type: 'Bus Premium',
+        type: 'Premium',
         image:
             'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=800&q=80',
         seats: 40,
@@ -27,7 +27,7 @@ const buses = [
     {
         id: 3,
         name: 'Economy Plus',
-        type: 'Bus Ekonomi',
+        type: 'Standard',
         image:
             'https://images.unsplash.com/photo-1494515843206-f3117d3f51b7?w=800&q=80',
         seats: 48,
@@ -61,33 +61,40 @@ const itemVariants = {
     visible: {
         opacity: 1,
         y: 0,
-        transition: { duration: 0.6, ease: 'easeOut' },
+        transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
     },
 };
 
 const BusFleet = () => {
     return (
         <section id="fleet" className="py-24 bg-gray-50">
-            <div className="max-w-7xl mx-auto px-4">
-                {/* Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="text-center mb-16"
-                >
-                    <span className="inline-block text-primary-600 font-semibold mb-4 uppercase tracking-wider text-sm">
-                        Armada Kami
-                    </span>
-                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                        Pilihan Bus untuk Setiap Kebutuhan
-                    </h2>
-                    <p className="text-gray-500 max-w-2xl mx-auto">
-                        Dari kelas ekonomi hingga eksekutif, kami menyediakan berbagai
-                        pilihan bus dengan fasilitas lengkap untuk kenyamanan Anda.
-                    </p>
-                </motion.div>
+            <div className="max-w-7xl mx-auto px-6">
+                {/* Header - Minimalist Split */}
+                <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-8">
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <h2 className="text-4xl md:text-5xl font-black text-gray-900 leading-tight tracking-tight">
+                            Our Premium<br />
+                            <span className="text-gray-400 font-light">Fleet Selection</span>
+                        </h2>
+                    </motion.div>
+
+                    <motion.div
+                        initial={{ opacity: 0, x: 20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                    >
+                        <button className="group flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-gray-900 pb-1 border-b-2 border-transparent hover:border-gray-900 transition-all">
+                            View All Fleet
+                            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                        </button>
+                    </motion.div>
+                </div>
 
                 {/* Bus Cards */}
                 <motion.div
@@ -101,88 +108,65 @@ const BusFleet = () => {
                         <motion.div
                             key={bus.id}
                             variants={itemVariants}
-                            whileHover={{ y: -12 }}
-                            className="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500"
+                            whileHover={{ y: -8 }}
+                            className="group bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-black/5 transition-all duration-500"
                         >
-                            {/* Image */}
-                            <div className="relative h-56 overflow-hidden">
+                            {/* Image - Clean */}
+                            <div className="relative h-64 overflow-hidden">
                                 <motion.img
                                     src={bus.image}
                                     alt={bus.name}
-                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                    className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                                <div className="absolute top-4 left-4">
-                                    <span className="bg-primary-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+
+                                {/* Badge - Minimal White */}
+                                <div className="absolute top-6 left-6">
+                                    <span className="bg-white/90 backdrop-blur-md text-gray-900 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg">
                                         {bus.type}
                                     </span>
-                                </div>
-                                <div className="absolute bottom-4 left-4 right-4">
-                                    <div className="text-white text-sm opacity-90">{bus.route}</div>
                                 </div>
                             </div>
 
                             {/* Content */}
-                            <div className="p-6">
-                                <div className="flex items-center justify-between mb-4">
-                                    <h3 className="text-xl font-bold text-gray-900">{bus.name}</h3>
-                                    <span className="text-sm text-gray-500">{bus.seats} kursi</span>
+                            <div className="p-8">
+                                <div className="flex items-start justify-between mb-2">
+                                    <div>
+                                        <div className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">{bus.route}</div>
+                                        <h3 className="text-2xl font-bold text-gray-900">{bus.name}</h3>
+                                    </div>
+                                    <div className="text-right">
+                                        <div className="text-lg font-bold text-gray-900">{bus.price}</div>
+                                    </div>
                                 </div>
 
-                                {/* Facilities */}
-                                <div className="flex flex-wrap gap-2 mb-6">
-                                    {bus.facilities.map((facility) => {
-                                        const { icon: Icon, label } = facilityIcons[facility];
+                                {/* Facilities - Minimal Icons */}
+                                <div className="flex flex-wrap gap-4 mt-6 pt-6 border-t border-gray-100">
+                                    {bus.facilities.slice(0, 4).map((facility) => {
+                                        const { icon: Icon } = facilityIcons[facility];
                                         return (
                                             <div
                                                 key={facility}
-                                                className="flex items-center gap-1.5 bg-gray-100 px-3 py-1.5 rounded-full text-sm text-gray-600"
+                                                className="text-gray-400 group-hover:text-gray-900 transition-colors duration-300"
+                                                title={facilityIcons[facility].label}
                                             >
-                                                <Icon className="w-4 h-4" />
-                                                <span>{label}</span>
+                                                <Icon className="w-5 h-5" strokeWidth={1.5} />
                                             </div>
                                         );
                                     })}
+                                    {bus.facilities.length > 4 && (
+                                        <span className="text-xs font-medium text-gray-400 self-center">+{bus.facilities.length - 4} more</span>
+                                    )}
                                 </div>
 
-                                {/* Price & CTA */}
-                                <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                                    <div>
-                                        <span className="text-sm text-gray-500">Mulai dari</span>
-                                        <div className="text-xl font-bold text-primary-600">
-                                            {bus.price}
-                                        </div>
-                                    </div>
-                                    <motion.button
-                                        whileHover={{ scale: 1.05, x: 4 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        className="flex items-center gap-2 bg-gray-900 text-white px-5 py-2.5 rounded-xl font-medium hover:bg-gray-800 transition-colors"
-                                    >
-                                        Lihat Detail
-                                        <ArrowRight className="w-4 h-4" />
-                                    </motion.button>
+                                <div className="mt-8">
+                                    <button className="w-full py-4 bg-gray-50 text-gray-900 font-bold text-sm uppercase tracking-wider rounded-xl group-hover:bg-gray-900 group-hover:text-white transition-all duration-300">
+                                        Book This Bus
+                                    </button>
                                 </div>
                             </div>
                         </motion.div>
                     ))}
-                </motion.div>
-
-                {/* View All Button */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                    className="text-center mt-12"
-                >
-                    <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="inline-flex items-center gap-2 bg-white border-2 border-gray-200 text-gray-700 px-8 py-4 rounded-xl font-semibold hover:border-primary-500 hover:text-primary-600 transition-all"
-                    >
-                        Lihat Semua Armada
-                        <ArrowRight className="w-5 h-5" />
-                    </motion.button>
                 </motion.div>
             </div>
         </section>
