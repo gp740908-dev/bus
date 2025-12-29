@@ -39,22 +39,25 @@ function App() {
                 element={
                   <>
                     <Navbar />
-                    <Routes>
-                      <Route path="/" element={<Home />} />
-                      <Route path="/pesan-tiket" element={<TicketSearch />} />
-                      <Route path="/pesan-tiket/hasil" element={<BusListResults />} />
-                      <Route path="/pesan-tiket/pilih-kursi" element={<SeatSelection />} />
-                      <Route path="/pesan-tiket/detail-penumpang" element={<PassengerDetails />} />
-                      <Route path="/pesan-tiket/pembayaran" element={<PaymentPage />} />
-                      <Route path="/pesan-tiket/konfirmasi" element={<BookingConfirmation />} />
-                      <Route path="/cek-tiket" element={<CheckTicket />} />
-                      <Route path="/dashboard" element={<Dashboard />} />
-                      <Route path="/armada" element={<Fleet />} />
-                      <Route path="/layanan" element={<Services />} />
-                      <Route path="/tentang-kami" element={<AboutUs />} />
-                      <Route path="/hubungi-kami" element={<ContactUs />} />
-                      <Route path="*" element={<NotFound />} />
-                    </Routes>
+                    {/* Main content wrapper with higher z-index to slide over footer */}
+                    <main className="relative bg-white" style={{ zIndex: 1 }}>
+                      <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/pesan-tiket" element={<TicketSearch />} />
+                        <Route path="/pesan-tiket/hasil" element={<BusListResults />} />
+                        <Route path="/pesan-tiket/pilih-kursi" element={<SeatSelection />} />
+                        <Route path="/pesan-tiket/detail-penumpang" element={<PassengerDetails />} />
+                        <Route path="/pesan-tiket/pembayaran" element={<PaymentPage />} />
+                        <Route path="/pesan-tiket/konfirmasi" element={<BookingConfirmation />} />
+                        <Route path="/cek-tiket" element={<CheckTicket />} />
+                        <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/armada" element={<Fleet />} />
+                        <Route path="/layanan" element={<Services />} />
+                        <Route path="/tentang-kami" element={<AboutUs />} />
+                        <Route path="/hubungi-kami" element={<ContactUs />} />
+                        <Route path="*" element={<NotFound />} />
+                      </Routes>
+                    </main>
                     <Footer />
                   </>
                 }
