@@ -1,14 +1,16 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { X, Instagram, Facebook, Linkedin, Twitter } from 'lucide-react';
 
 const menuItems = [
-    { name: 'Home', href: '#home', hasAccent: true },
-    { name: 'Pesan Tiket', href: '#search' },
-    { name: 'Cek Tiket', href: '#' },
-    { name: 'Layanan', href: '#features' },
-    { name: 'Armada', href: '#fleet' },
-    { name: 'Tentang Kami', href: '#' },
-    { name: 'Contact', href: '#footer' },
+    { name: 'Home', href: '/', isRoute: true, hasAccent: true },
+    { name: 'Pesan Tiket', href: '#search', isRoute: false },
+    { name: 'Cek Tiket', href: '#', isRoute: false },
+    { name: 'Layanan', href: '#features', isRoute: false },
+    { name: 'Armada', href: '#fleet', isRoute: false },
+    { name: 'Tentang Kami', href: '#', isRoute: false },
+    { name: 'Contact', href: '#footer', isRoute: false },
+    { name: 'Masuk', href: '/sign-in', isRoute: true },
 ];
 
 const socialLinks = [
@@ -50,9 +52,9 @@ const MobileMenu = ({ onClose }) => {
         },
     };
 
-    const handleLinkClick = (href) => {
+    const handleLinkClick = (href, isRoute) => {
         onClose();
-        if (href !== '#') {
+        if (!isRoute && href !== '#') {
             setTimeout(() => {
                 const element = document.querySelector(href);
                 if (element) {
@@ -89,20 +91,33 @@ const MobileMenu = ({ onClose }) => {
                 <ul className="space-y-4 md:space-y-6">
                     {menuItems.map((item, index) => (
                         <motion.li key={index} variants={itemVariants}>
-                            <motion.a
-                                href={item.href}
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    handleLinkClick(item.href);
-                                }}
-                                whileHover={{ x: 20 }}
-                                className="flex items-center gap-4 text-3xl md:text-5xl font-bold text-white uppercase tracking-wide hover:text-primary-500 transition-colors"
-                            >
-                                {item.hasAccent && (
-                                    <span className="w-3 h-3 bg-secondary-500 rounded-full" />
-                                )}
-                                {item.name}
-                            </motion.a>
+                            {item.isRoute ? (
+                                <Link
+                                    to={item.href}
+                                    onClick={() => handleLinkClick(item.href, true)}
+                                    className="flex items-center gap-4 text-3xl md:text-5xl font-bold text-white uppercase tracking-wide hover:text-primary-500 transition-colors"
+                                >
+                                    {item.hasAccent && (
+                                        <span className="w-3 h-3 bg-secondary-500 rounded-full" />
+                                    )}
+                                    {item.name}
+                                </Link>
+                            ) : (
+                                <motion.a
+                                    href={item.href}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        handleLinkClick(item.href, false);
+                                    }}
+                                    whileHover={{ x: 20 }}
+                                    className="flex items-center gap-4 text-3xl md:text-5xl font-bold text-white uppercase tracking-wide hover:text-primary-500 transition-colors"
+                                >
+                                    {item.hasAccent && (
+                                        <span className="w-3 h-3 bg-secondary-500 rounded-full" />
+                                    )}
+                                    {item.name}
+                                </motion.a>
+                            )}
                         </motion.li>
                     ))}
                 </ul>

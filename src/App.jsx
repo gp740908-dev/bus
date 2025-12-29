@@ -1,24 +1,37 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import SearchForm from './components/SearchForm';
-import Features from './components/Features';
-import BusFleet from './components/BusFleet';
-import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
+import Home from './pages/Home';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+import ForgotPassword from './pages/ForgotPassword';
 
 function App() {
   return (
-    <div className="min-h-screen bg-white font-satoshi">
-      <Navbar />
-      <main>
-        <Hero />
-        <SearchForm />
-        <Features />
-        <BusFleet />
-        <Testimonials />
-      </main>
-      <Footer />
-    </div>
+    <Router>
+      <div className="min-h-screen bg-white font-satoshi">
+        <Routes>
+          {/* Auth pages without navbar/footer */}
+          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+
+          {/* Main pages with navbar/footer */}
+          <Route
+            path="/*"
+            element={
+              <>
+                <Navbar />
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                </Routes>
+                <Footer />
+              </>
+            }
+          />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
