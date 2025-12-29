@@ -26,6 +26,9 @@ const Navbar = () => {
         return null;
     }
 
+    // Check if we are on the homepage to apply specific styles
+    const isHomePage = location.pathname === '/';
+
     return (
         <>
             {/* Desktop Navbar */}
@@ -34,8 +37,8 @@ const Navbar = () => {
                 animate={{ y: 0 }}
                 transition={{ duration: 0.5, ease: 'easeOut' }}
                 className={`fixed top-0 left-0 right-0 z-50 hidden md:block transition-all duration-300 ${isScrolled
-                        ? 'bg-white shadow-lg py-3'
-                        : 'bg-transparent py-6'
+                    ? 'bg-white/90 backdrop-blur-md shadow-sm py-3'
+                    : 'bg-transparent py-5'
                     }`}
             >
                 <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
@@ -43,9 +46,9 @@ const Navbar = () => {
                     <Link to="/">
                         <motion.div
                             whileHover={{ scale: 1.02 }}
-                            className="bg-gray-100 px-6 py-3 rounded-full"
+                            className={`${isScrolled ? 'bg-gray-100' : 'bg-white/0'} px-4 py-2 rounded-full transition-colors`}
                         >
-                            <span className="text-lg font-bold tracking-wide text-gray-900 uppercase">
+                            <span className={`text-lg font-black tracking-tight uppercase ${isScrolled || isHomePage ? 'text-gray-900' : 'text-white'}`}>
                                 PO. Cipeng
                             </span>
                         </motion.div>
@@ -58,9 +61,11 @@ const Navbar = () => {
                             <motion.div
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-colors ${isScrolled
-                                        ? 'bg-primary-600 text-white hover:bg-primary-700'
-                                        : 'bg-white/20 backdrop-blur-sm text-white hover:bg-white/30'
+                                className={`flex items-center gap-2 px-6 py-2.5 rounded-full font-bold text-sm transition-colors ${isScrolled
+                                        ? 'bg-gray-900 text-white hover:bg-black'
+                                        : isHomePage
+                                            ? 'bg-gray-900 text-white hover:bg-black shadow-lg shadow-gray-200'
+                                            : 'bg-white/20 backdrop-blur-sm text-white hover:bg-white/30'
                                     }`}
                             >
                                 <User className="w-4 h-4" />
@@ -73,13 +78,15 @@ const Navbar = () => {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             onClick={toggleMobileMenu}
-                            className={`p-3 rounded-lg transition-colors ${isScrolled
-                                    ? 'bg-gray-100 hover:bg-gray-200'
-                                    : 'bg-white/20 backdrop-blur-sm hover:bg-white/30'
+                            className={`p-3 rounded-full transition-colors ${isScrolled
+                                    ? 'hover:bg-gray-100 text-gray-900'
+                                    : isHomePage
+                                        ? 'hover:bg-gray-100 text-gray-900'
+                                        : 'hover:bg-white/20 text-white'
                                 }`}
                             aria-label="Open menu"
                         >
-                            <Menu className={`w-6 h-6 ${isScrolled ? 'text-gray-900' : 'text-white'}`} />
+                            <Menu className="w-6 h-6" />
                         </motion.button>
                     </div>
                 </div>
@@ -92,11 +99,11 @@ const Navbar = () => {
                 transition={{ duration: 0.5, ease: 'easeOut' }}
                 className={`fixed top-4 left-4 right-4 z-50 md:hidden transition-all duration-300`}
             >
-                <div className="glassmorphism rounded-2xl shadow-lg px-4 py-3 flex items-center justify-between">
+                <div className="bg-white/90 backdrop-blur-md rounded-2xl shadow-lg border border-white/50 px-4 py-3 flex items-center justify-between">
                     {/* Logo */}
                     <Link to="/">
-                        <div className="bg-white/90 px-4 py-2 rounded-full">
-                            <span className="text-sm font-bold tracking-wide text-gray-900 uppercase">
+                        <div className="px-2">
+                            <span className="text-sm font-black tracking-wide text-gray-900 uppercase">
                                 PO. Cipeng
                             </span>
                         </div>
@@ -109,7 +116,7 @@ const Navbar = () => {
                             <motion.div
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="bg-primary-600 text-white p-2.5 rounded-lg"
+                                className="bg-gray-900 text-white p-2.5 rounded-xl"
                             >
                                 <User className="w-4 h-4" />
                             </motion.div>
@@ -120,10 +127,10 @@ const Navbar = () => {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             onClick={toggleMobileMenu}
-                            className="bg-white/90 p-2.5 rounded-lg"
+                            className="bg-gray-100 p-2.5 rounded-xl text-gray-900"
                             aria-label="Open menu"
                         >
-                            <Menu className="w-5 h-5 text-gray-900" />
+                            <Menu className="w-5 h-5" />
                         </motion.button>
                     </div>
                 </div>
