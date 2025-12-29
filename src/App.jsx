@@ -14,6 +14,10 @@ import PaymentPage from './pages/PaymentPage';
 import BookingConfirmation from './pages/BookingConfirmation';
 import CheckTicket from './pages/CheckTicket';
 import Dashboard from './pages/Dashboard';
+import Fleet from './pages/Fleet';
+import Services from './pages/Services';
+import AboutUs from './pages/AboutUs';
+import ContactUs from './pages/ContactUs';
 
 function App() {
   return (
@@ -42,6 +46,10 @@ function App() {
                     <Route path="/pesan-tiket/konfirmasi" element={<BookingConfirmation />} />
                     <Route path="/cek-tiket" element={<CheckTicket />} />
                     <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/armada" element={<Fleet />} />
+                    <Route path="/layanan" element={<Services />} />
+                    <Route path="/tentang-kami" element={<AboutUs />} />
+                    <Route path="/hubungi-kami" element={<ContactUs />} />
                   </Routes>
                   <Footer />
                 </>
